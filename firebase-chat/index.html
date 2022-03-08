@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+      <input type="text" id="name" />
+      <input type="text" id="age" />
+      <button type="button" id="button">Click</button>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        push,
+        child,
+        onValue,
+      } from " https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyAO0hnHIWytejRZHWm1bxW0DP8emIMPrl8",
+        authDomain: "chat-app-eb60b.firebaseapp.com",
+        databaseURL: "https://chat-app-eb60b-default-rtdb.firebaseio.com",
+        projectId: "chat-app-eb60b",
+        storageBucket: "chat-app-eb60b.appspot.com",
+        messagingSenderId: "423195605441",
+        appId: "1:423195605441:web:871062c9c7c342d0dd1740",
+        measurementId: "G-LLCJC0TSNV",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      let name = document.getElementById("name");
+      let age = document.getElementById("age");
+
+      const button = document.getElementById("button");
+
+      button.addEventListener("click", () => {
+
+        const id = push(child(ref(db), "users")).key;
+
+        set(ref(db, "users/" + id), {
+          name: name.value,
+          age: age.value
+        });
+     });
+    </script>
+  </body>
+</html>
